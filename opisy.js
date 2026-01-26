@@ -103,6 +103,7 @@ Kaucja: Wymagana w wysokości 225 zł.
 
 let aktualnaGaleria = [];
 let aktualnyIndeks = 0;
+let aktualnyZoom = 1;
 
 function pokazOpis(klucz, przycisk) {
     const kontener = document.getElementById('opis-' + klucz);
@@ -154,6 +155,7 @@ function otworzGalerie(klucz) {
 
     aktualnaGaleria = dane.zdjecia;
     aktualnyIndeks = 0;
+    aktualnyZoom = 1;
     zaktualizujLightbox();
     document.getElementById('lightbox').style.display = 'flex';
 }
@@ -166,12 +168,21 @@ function zmienZdjecie(kierunek) {
     aktualnyIndeks += kierunek;
     if (aktualnyIndeks < 0) aktualnyIndeks = aktualnaGaleria.length - 1;
     if (aktualnyIndeks >= aktualnaGaleria.length) aktualnyIndeks = 0;
+    aktualnyZoom = 1;
     zaktualizujLightbox();
 }
 
 function zaktualizujLightbox() {
     const img = document.getElementById('lightbox-img');
     img.src = aktualnaGaleria[aktualnyIndeks];
+    img.style.transform = `scale(${aktualnyZoom})`;
+}
+
+function zmienZoom(zmiana) {
+    aktualnyZoom += zmiana;
+    if (aktualnyZoom < 0.5) aktualnyZoom = 0.5; // Minimalne pomniejszenie
+    if (aktualnyZoom > 3.0) aktualnyZoom = 3.0; // Maksymalne powiększenie
+    document.getElementById('lightbox-img').style.transform = `scale(${aktualnyZoom})`;
 }
 
 function filtrujOgloszenia() {
@@ -205,6 +216,8 @@ function wyslijFormularz(event) {
     event.preventDefault(); // Zatrzymuje przeładowanie strony
 
     const form = event.target;
+    const btn = form.querySelector('button');
+    const originalText = btn.innerText;
     
     // Walidacja numeru telefonu
     const telefonInput = form.querySelector('input[name="telefon"]');
@@ -215,15 +228,27 @@ function wyslijFormularz(event) {
         return; // Przerywa wysyłanie formularza
     }
 
+    btn.innerText = 'Wysyłanie...';
+    btn.disabled = true;
+
     const wrapper = document.querySelector('.contact-form-wrapper');
 
-    fetch(form.action, {
-        method: form.method,
-        body: new FormData(form),
-        headers: {
+    fetch("https://formsubmit.co/ajax/zbyszekszczesny83@gmail.com", {
+        method: "POST",
+        headers: { 
+            'Content-Type': 'application/json',
             'Accept': 'application/json'
-        }
-    }).then(response => {
+        },
+        body: JSON.stringify({
+            imie: form.querySelector('input[name="imie"]').value,
+            telefon: form.querySelector('input[name="telefon"]').value,
+            email: form.querySelector('input[name="email"]').value,
+            wiadomosc: form.querySelector('textarea[name="wiadomosc"]').value,
+            _subject: "Nowe zapytanie RentMaster",
+            _autoresponse: "Dziękujemy za wiadomość! Otrzymaliśmy Twoje zgłoszenie i skontaktujemy się z Tobą wkrótce."
+        })
+    })
+    .then(response => {
         if (response.ok) {
             wrapper.innerHTML = `
                 <div style="text-align: center; padding: 20px;">
@@ -234,9 +259,12 @@ function wyslijFormularz(event) {
             `;
         } else {
             alert("Wystąpił problem z wysłaniem formularza. Spróbuj ponownie później.");
+            throw new Error('Błąd wysyłki');
         }
     }).catch(error => {
-        alert("Wystąpił błąd połączenia.");
+        alert("Wystąpił błąd podczas wysyłania wiadomości. Spróbuj ponownie.");
+        btn.innerText = originalText;
+        btn.disabled = false;
     });
 }
 
@@ -315,3 +343,29 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+
+// Obsługa przesuwania (swipe) w galerii na urządzeniach dotykowych
+const lightbox = document.getElementById('lightbox');
+let touchStartX = 0;
+let touchEndX = 0;
+
+lightbox.addEventListener('touchstart', (event) => {
+    // Zapisujemy pozycję początkową dotyku
+    touchStartX = event.changedTouches[0].screenX;
+}, { passive: true });
+
+lightbox.addEventListener('touchend', (event) => {
+    // Zapisujemy pozycję końcową dotyku
+    touchEndX = event.changedTouches[0].screenX;
+    handleGesture();
+});
+
+function handleGesture() {
+    // Funkcja swipe działa tylko, gdy zdjęcie nie jest przybliżone (aktualnyZoom === 1)
+    if (aktualnyZoom > 1) return;
+
+    const swipeThreshold = 50; // Minimalna odległość przesunięcia, aby uznać to za swipe
+
+    if (touchEndX < touchStartX - swipeThreshold) zmienZdjecie(1); // Swipe w lewo -> następne zdjęcie
+    if (touchEndX > touchStartX + swipeThreshold) zmienZdjecie(-1); // Swipe w prawo -> poprzednie zdjęcie
+}
