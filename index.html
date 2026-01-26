@@ -5,25 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RentMaster - Garaże, Magazyny, Mieszkania | Łomża, Białystok</title>
     
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GLXE62H2D6"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-GLXE62H2D6');
+    </script>
+
     <!-- Meta tagi dla Social Media (Facebook, SMS) -->
+    <meta name="description" content="Sprawdź nasze oferty wynajmu w Łomży, Piszu, Białymstoku i Ostrołęce. Bezpieczne przechowywanie i atrakcyjne ceny.">
     <meta property="og:title" content="RentMaster - Wynajem Garaży i Magazynów">
     <meta property="og:description" content="Sprawdź nasze oferty wynajmu w Łomży, Piszu, Białymstoku i Ostrołęce. Bezpieczne przechowywanie i atrakcyjne ceny.">
     <meta property="og:image" content="https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1500&auto=format&fit=crop">
     <meta property="og:url" content="https://ziggy83pl.github.io/rentmaster/">
     <meta property="og:type" content="website">
+    <meta property="og:locale" content="pl_PL">
+    <meta property="og:site_name" content="RentMaster">
+
+    <!-- Favicon - Ikonka w karcie przeglądarki -->
+    <link rel="icon" type="image/png" sizes="32x32" href="image/logo/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="image/logo/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="image/logo/apple-touch-icon.png">
 
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         /* Style dla galerii (Lightbox) */
         .lightbox { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); justify-content: center; align-items: center; }
-        .lightbox-content { max-width: 90%; max-height: 90vh; border-radius: 4px; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
-        .close { position: absolute; top: 20px; right: 35px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .lightbox-content { max-width: 90%; max-height: 90vh; border-radius: 4px; box-shadow: 0 0 20px rgba(0,0,0,0.5); transition: transform 0.3s ease; }
+        .close { position: absolute; top: 20px; right: 35px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; transition: 0.3s; z-index: 10002; }
         .close:hover { color: #bbb; }
-        .prev, .next { cursor: pointer; position: absolute; top: 50%; width: auto; padding: 16px; margin-top: -22px; color: white; font-weight: bold; font-size: 25px; transition: 0.6s ease; border-radius: 0 3px 3px 0; user-select: none; background-color: rgba(0,0,0,0.3); }
+        .prev, .next { cursor: pointer; position: absolute; top: 50%; width: auto; padding: 16px; margin-top: -22px; color: white; font-weight: bold; font-size: 25px; transition: 0.6s ease; border-radius: 0 3px 3px 0; user-select: none; background-color: rgba(0,0,0,0.3); z-index: 10002; }
         .next { right: 0; border-radius: 3px 0 0 3px; }
         .prev { left: 0; border-radius: 3px 0 0 3px; }
         .prev:hover, .next:hover { background-color: rgba(0,0,0,0.8); }
+        
+        /* Przyciski Zoom */
+        .zoom-controls { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); display: flex; gap: 15px; z-index: 10002; }
+        .zoom-controls button { background: rgba(0, 0, 0, 0.5); border: 1px solid rgba(255,255,255,0.3); color: white; font-size: 1.2rem; padding: 10px 15px; cursor: pointer; border-radius: 50px; transition: 0.3s; outline: none; }
+        .zoom-controls button:hover { background: rgba(255, 255, 255, 0.8); color: #000; }
         
         /* Ikonka galerii na zdjęciu */
         .gallery-overlay { position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.7); color: #fff; padding: 5px 10px; border-radius: 4px; font-size: 0.8rem; pointer-events: none; }
@@ -38,7 +60,13 @@
             <ul class="nav-links">
                 <li><a href="#oferty">Oferty</a></li>
                 <li><a href="#miasta">Miasta</a></li>
-                <li><a href="#podnajem" class="btn-highlight">Zgłoś swój lokal</a></li>
+                <li class="dropdown">
+                    <a href="#podnajem" class="btn-highlight">Zgłoś swój lokal <i class="fas fa-chevron-down" style="font-size: 0.8rem; margin-left: 5px;"></i></a>
+                    <div class="dropdown-content">
+                        <a href="#podnajem">Dla właścicieli</a>
+                        <a href="#oferty">Dla najemców</a>
+                    </div>
+                </li>
             </ul>
         </div>
     </nav>
@@ -215,17 +243,20 @@
             </div>
             
             <div class="cta-center">
-                <a href="tel:+48123456789" class="btn-main"><i class="fas fa-phone"></i> Zadzwoń i porozmawiajmy</a>
+                <a href="tel:+48574322909" class="btn-main"><i class="fas fa-phone"></i> Zadzwoń i porozmawiajmy</a>
             </div>
 
             <div class="contact-form-wrapper">
                 <h3>Lub napisz do nas</h3>
-                <form class="contact-form" action="https://formspree.io/f/TUTAJ_WKLEJ_SWOJ_KOD" method="POST" onsubmit="wyslijFormularz(event)">
+                <form class="contact-form" onsubmit="wyslijFormularz(event)">
                     <div class="form-group">
                         <input type="text" name="imie" placeholder="Twoje imię" required>
                     </div>
                     <div class="form-group">
                         <input type="tel" name="telefon" placeholder="Numer telefonu" pattern="[0-9\s-]{9,}" title="Numer telefonu powinien składać się z 9 cyfr" required oninput="formatujTelefon(this)">
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Twój email (opcjonalnie)">
                     </div>
                     <div class="form-group">
                         <textarea name="wiadomosc" placeholder="Wiadomość (np. adres lokalu, metraż)" rows="4" required></textarea>
@@ -241,10 +272,15 @@
             <div class="trusted-section">
                 <h4>Zaufali nam</h4>
                 <div class="trusted-logos">
-                    <img src="image/logo/doners_kebab.png" alt="Partner 1">
-                    <img src="image/logo/prodom.webp" alt="Partner 2">
-                    <img src="image/logo/siepomaga.png" alt="Partner 3">
-                    <img src="image/logo/nopicture.png" alt="Partner 4">
+                    <a href="https://www.facebook.com/DonersLomza?locale=pl_PL" target="_blank" rel="noopener noreferrer">
+                    <img src="image/logo/doners_kebab.png" alt="Doners Kebab Łomża" title="Polecamy najlepsze kebsy w Łomży">
+                        </a>
+                    <a href="https://ziggy83pl.github.io/Prodom-budownictwo/" target="_blank" rel="noopener noreferrer">
+                    <img src="image/logo/prodom.webp" alt="PRODOM - Usługi Budowlane" title="Współpracujemy w budownictwie">
+                        </a>
+                    <a href="https://www.siepomaga.pl/" target="_blank" rel="noopener noreferrer">
+                    <img src="image/logo/siepomaga.png" alt="Wspieramy Siepomaga.pl" title="Pomagamy">
+                        </a>
                 </div>
             </div>
             <div class="footer-grid">
@@ -278,6 +314,10 @@
         <img class="lightbox-content" id="lightbox-img" src="">
         <a class="prev" onclick="zmienZdjecie(-1)">&#10094;</a>
         <a class="next" onclick="zmienZdjecie(1)">&#10095;</a>
+        <div class="zoom-controls" onclick="event.stopPropagation()">
+            <button onclick="zmienZoom(0.2)" title="Przybliż"><i class="fas fa-search-plus"></i></button>
+            <button onclick="zmienZoom(-0.2)" title="Oddal"><i class="fas fa-search-minus"></i></button>
+        </div>
     </div>
 
     <!-- Przycisk powrotu do góry -->
@@ -285,5 +325,4 @@
 
     <script src="opisy.js"></script>
 </body>
-
 </html>
