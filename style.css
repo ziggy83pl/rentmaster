@@ -76,6 +76,61 @@ body {
     border-radius: 50px;
 }
 
+/* Dropdown Menu */
+.nav-links li {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    min-width: 180px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    border-radius: 15px;
+    padding: 10px 0;
+    z-index: 1001;
+    margin-top: 15px;
+}
+
+/* Niewidoczny mostek, aby menu nie znikało podczas przesuwania myszki */
+.dropdown-content::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: 0;
+    width: 100%;
+    height: 20px;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+.dropdown-content a {
+    display: block;
+    padding: 12px 20px;
+    color: var(--dark);
+    text-decoration: none;
+    transition: 0.3s;
+    font-weight: 500;
+    text-align: center;
+}
+
+.dropdown-content a:hover {
+    background-color: var(--light);
+    color: var(--primary);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translate(-50%, 10px); }
+    to { opacity: 1; transform: translate(-50%, 0); }
+}
+
 /* Hero Section */
 .hero {
     background: linear-gradient(rgba(26, 42, 108, 0.8), rgba(26, 42, 108, 0.8)), 
@@ -429,10 +484,10 @@ body {
 }
 
 .trusted-logos img {
-    max-height: 50px;
+    max-height: 100px;
     max-width: 150px;
     opacity: 0.6;
-    transition: 0.3s;
+    transition: opacity 0.3s, filter 0.3s, transform 0.3s;
     filter: grayscale(0%) brightness(100%); /* Efekt białych logo */
     border-radius: 50%;
 }
@@ -440,6 +495,7 @@ body {
 .trusted-logos img:hover {
     opacity: 1;
     filter: none; /* Przywraca kolory po najechaniu */
+    transform: scale(1.1); /* Dodajemy lekkie powiększenie */
 }
 
 /* Przycisk nawigacji w opisie */
