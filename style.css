@@ -546,3 +546,35 @@ body {
     background-color: #27ae60;
     transform: translateY(-5px);
 }
+
+/* =========================================
+PASEK "W PRZEBUDOWIE" (RIBBON)
+   ========================================= */
+.ribbon-wrapper {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    z-index: 9999; /* Zawsze na wierzchu */
+    pointer-events: none; /* Pozwala klikać "przez" puste miejsce w rogu */
+}
+
+.ribbon {
+    position: absolute;
+    top: 49px;
+    right: -29px;
+    width: 200px;
+    background-color: #FFB400; /* Żółty kolor ostrzegawczy */
+    color: #000;
+    text-align: center;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    padding: 8px 0;
+    transform: rotate(45deg);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    letter-spacing: 1px;
+    pointer-events: auto;
+}
