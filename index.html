@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RentMaster - Garaże, Magazyny, Mieszkania | Łomża, Białystok</title>
+    
+    <!-- Meta tagi dla Social Media (Facebook, SMS) -->
+    <meta property="og:title" content="RentMaster - Wynajem Garaży i Magazynów">
+    <meta property="og:description" content="Sprawdź nasze oferty wynajmu w Łomży, Piszu, Białymstoku i Ostrołęce. Bezpieczne przechowywanie i atrakcyjne ceny.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1500&auto=format&fit=crop">
+    <meta property="og:url" content="https://twojastrona.pl">
+    <meta property="og:type" content="website">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Style dla galerii (Lightbox) */
+        .lightbox { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); justify-content: center; align-items: center; }
+        .lightbox-content { max-width: 90%; max-height: 90vh; border-radius: 4px; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
+        .close { position: absolute; top: 20px; right: 35px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .close:hover { color: #bbb; }
+        .prev, .next { cursor: pointer; position: absolute; top: 50%; width: auto; padding: 16px; margin-top: -22px; color: white; font-weight: bold; font-size: 25px; transition: 0.6s ease; border-radius: 0 3px 3px 0; user-select: none; background-color: rgba(0,0,0,0.3); }
+        .next { right: 0; border-radius: 3px 0 0 3px; }
+        .prev { left: 0; border-radius: 3px 0 0 3px; }
+        .prev:hover, .next:hover { background-color: rgba(0,0,0,0.8); }
+        
+        /* Ikonka galerii na zdjęciu */
+        .gallery-overlay { position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.7); color: #fff; padding: 5px 10px; border-radius: 4px; font-size: 0.8rem; pointer-events: none; }
+        .property-img { cursor: pointer; position: relative; } /* Dodajemy pointer żeby sugerować klikalność */
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container nav-flex">
+            <div class="logo">Rent<span>Master</span></div>
+            <ul class="nav-links">
+                <li><a href="#oferty">Oferty</a></li>
+                <li><a href="#miasta">Miasta</a></li>
+                <li><a href="#podnajem" class="btn-highlight">Zgłoś swój lokal</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container">
+            <h1>Znajdź przestrzeń w Twoim mieście</h1>
+            <p>Bezpieczny wynajem i zyskowny podnajem nieruchomości na Podlasiu.</p>
+            
+            <div class="search-box">
+                <div class="search-field">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <select id="city">
+                        <option value="all">Wszystkie miasta</option>
+                        <option value="lomza">Łomża</option>
+                        <option value="bialystok">Białystok</option>
+                        <option value="ostroleka">Ostrołęka</option>
+                        <option value="pisz">Pisz</option>
+                    </select>
+                </div>
+                <div class="search-field">
+                    <i class="fas fa-warehouse"></i>
+                    <select id="type">
+                        <option value="all">Wszystkie typy</option>
+                        <option value="garage">Garaż</option>
+                        <option value="storage">Magazyn</option>
+                        <option value="apartment">Mieszkanie</option>
+                        <option value="plot">Działka</option>
+                    </select>
+                </div>
+                <button class="btn-search" onclick="filtrujOgloszenia()">Szukaj ofert</button>
+            </div>
+        </div>
+    </header>
+
+    <section id="oferty" class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Najnowsze ogłoszenia</h2>
+                <p>Sprawdź dostępne lokale w Twojej okolicy</p>
+            </div>
+
+            <div class="property-grid">
+                <!--Pisz-->
+                <div class="property-card" id="oferta-pisz" data-city="pisz" data-type="garage">
+                    <div class="property-img" style="background-image: url('image/pisz/garaz.jpg'); background-size: contain; background-repeat: no-repeat; background-position: center; background-color: #222;" onclick="otworzGalerie('pisz')">
+                        <span class="badge">Pisz</span>
+                        <div class="gallery-overlay"><i class="fas fa-camera"></i> Kliknij, aby zobaczyć galerię</div>
+                    </div>
+                    
+                    <div class="property-content">
+                        <h3>Garaż Murowany - Centrum</h3>
+                        <p class="params"><i class="fas fa-expand"></i> 16m² | <i class="fas fa-shield-alt"></i> Monitoring</p>
+                        <div class="price">225 zł <span>/mc</span></div>
+                        <div class="buttons-container">
+                            <button class="btn-view" onclick="pokazOpis('pisz', this)">Zobacz szczegóły</button>
+                            <button class="btn-share" onclick="udostepnij('pisz')" title="Kopiuj link do ogłoszenia"><i class="fas fa-share-alt"></i></button>
+                        </div>
+                        <div id="opis-pisz" class="opis-animacja" style="color: #444; font-size: 0.95rem; line-height: 1.5;"></div>
+                    </div>
+                </div>
+                <!--Białystok-->
+                <div class="property-card" id="oferta-bialystok" data-city="bialystok" data-type="storage">
+                    <div class="property-img" style="background-image: url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=500&auto=format&fit=crop');">
+                        <span class="badge">Białystok</span>
+                    </div>
+                    <div class="property-content">
+                        <h3>Magazyn Self-Storage</h3>
+                        <p class="params"><i class="fas fa-expand"></i> 5m² | <i class="fas fa-key"></i> Dostęp 24/7</p>
+                        <div class="price">150 zł <span>/mc</span></div>
+                        <div class="buttons-container">
+                            <button class="btn-view" onclick="pokazOpis('bialystok', this)">Zobacz szczegóły</button>
+                            <button class="btn-share" onclick="udostepnij('bialystok')" title="Kopiuj link do ogłoszenia"><i class="fas fa-share-alt"></i></button>
+                        </div>
+                        <div id="opis-bialystok" class="opis-animacja" style="color: #444; font-size: 0.95rem; line-height: 1.5;"></div>
+                    </div>
+                </div>
+                <!--Ostrołeka-->
+                <div class="property-card" id="oferta-ostroleka" data-city="ostroleka" data-type="apartment">
+                    <div class="property-img" style="background-image: url('https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=500&auto=format&fit=crop');">
+                        <span class="badge">Ostrołęka</span>
+                    </div>
+                    <div class="property-content">
+                        <h3>Kawalerka po remoncie</h3>
+                        <p class="params"><i class="fas fa-expand"></i> 28m² | <i class="fas fa-bed"></i> 1 Pokój</p>
+                        <div class="price">1600 zł <span>/mc</span></div>
+                        <div class="buttons-container">
+                            <button class="btn-view" onclick="pokazOpis('ostroleka', this)">Zobacz szczegóły</button>
+                            <button class="btn-share" onclick="udostepnij('ostroleka')" title="Kopiuj link do ogłoszenia"><i class="fas fa-share-alt"></i></button>
+                        </div>
+                        <div id="opis-ostroleka" class="opis-animacja" style="color: #444; font-size: 0.95rem; line-height: 1.5;"></div>
+                    </div>
+                </div>
+                <!--Łomża-->
+                <div class="property-card" id="oferta-lomza" data-city="lomza" data-type="apartment">
+                    <div class="property-img" style="background-image: url('https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=500&auto=format&fit=crop');">
+                        <span class="badge">Łomża</span>
+                    </div>
+                    <div class="property-content">
+                        <h3>Kawalerka po remoncie</h3>
+                        <p class="params"><i class="fas fa-expand"></i> 28m² | <i class="fas fa-bed"></i> 1 Pokój</p>
+                        <div class="price">1600 zł <span>/mc</span></div>
+                        <div class="buttons-container">
+                            <button class="btn-view" onclick="pokazOpis('lomza', this)">Zobacz szczegóły</button>
+                            <button class="btn-share" onclick="udostepnij('lomza')" title="Kopiuj link do ogłoszenia"><i class="fas fa-share-alt"></i></button>
+                        </div>
+                        <div id="opis-lomza" class="opis-animacja" style="color: #444; font-size: 0.95rem; line-height: 1.5;"></div>
+                    </div>
+                </div>
+                <!--Łomża Działka-->
+                <div class="property-card" id="oferta-lomza-dzialka" data-city="lomza" data-type="plot">
+                    <div class="property-img" style="background-image: url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=500&auto=format&fit=crop');">
+                        <span class="badge">Łomża</span>
+                    </div>
+                    <div class="property-content">
+                        <h3>Działka / Plac Utwardzony</h3>
+                        <p class="params"><i class="fas fa-expand"></i> 500m² | <i class="fas fa-layer-group"></i> Utwardzona</p>
+                        <div class="price">800 zł <span>/mc</span></div>
+                        <div class="buttons-container">
+                            <button class="btn-view" onclick="pokazOpis('lomza-dzialka', this)">Zobacz szczegóły</button>
+                            <button class="btn-share" onclick="udostepnij('lomza-dzialka')" title="Kopiuj link do ogłoszenia"><i class="fas fa-share-alt"></i></button>
+                        </div>
+                        <div id="opis-lomza-dzialka" class="opis-animacja" style="color: #444; font-size: 0.95rem; line-height: 1.5;"></div>
+                    </div>
+                </div>
+                <!--Łomża Mieszkanie 2-->
+                <div class="property-card" id="oferta-lomza-mieszkanie" data-city="lomza" data-type="apartment">
+                    <div class="property-img" style="background-image: url('https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=500&auto=format&fit=crop');">
+                        <span class="badge">Łomża</span>
+                    </div>
+                    <div class="property-content">
+                        <h3>Mieszkanie pod Podnajem</h3>
+                        <p class="params"><i class="fas fa-expand"></i> 48m² | <i class="fas fa-bed"></i> 2 Pokoje</p>
+                        <div class="price">1800 zł <span>/mc</span></div>
+                        <div class="buttons-container">
+                            <button class="btn-view" onclick="pokazOpis('lomza-mieszkanie', this)">Zobacz szczegóły</button>
+                            <button class="btn-share" onclick="udostepnij('lomza-mieszkanie')" title="Kopiuj link do ogłoszenia"><i class="fas fa-share-alt"></i></button>
+                        </div>
+                        <div id="opis-lomza-mieszkanie" class="opis-animacja" style="color: #444; font-size: 0.95rem; line-height: 1.5;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="no-results" style="display:none; text-align: center; padding: 50px 0; color: #666;">
+                <i class="fas fa-search" style="font-size: 3rem; margin-bottom: 20px; color: #ddd;"></i>
+                <h3>Brak ofert spełniających kryteria</h3>
+                <p>Spróbuj zmienić filtry wyszukiwania.</p>
+            </div>
+        </div>
+    </section>
+    <section id="podnajem" class="section owner-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Zarabiaj bez wysiłku na swojej nieruchomości</h2>
+                <p>Obsługujemy Łomżę, Ostrołękę, Białystok i Pisz</p>
+            </div>
+
+            <div class="owner-grid">
+                <div class="owner-card">
+                    <i class="fas fa-city"></i>
+                    <h3>Masz lokal w mieście?</h3>
+                    <p>Mieszkanie, garaż czy magazyn – jeśli nie masz czasu na zarządzanie, szukanie najemców i pilnowanie płatności, zrób to z nami.</p>
+                </div>
+                <div class="owner-card">
+                    <i class="fas fa-handshake"></i>
+                    <h3>Zlec nam zarządzanie</h3>
+                    <p>Gwarantujemy stały czynsz dla Ciebie, a my zajmujemy się resztą. Sprawdź jak działa nasz model podnajmu.</p>
+                </div>
+                <div class="owner-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Zgłoś się do nas</h3>
+                    <p>Przygotujemy darmową wycenę potencjału Twojego garażu lub mieszkania w ciągu 24h.</p>
+                </div>
+            </div>
+            
+            <div class="cta-center">
+                <a href="tel:+48123456789" class="btn-main"><i class="fas fa-phone"></i> Zadzwoń i porozmawiajmy</a>
+            </div>
+
+            <div class="contact-form-wrapper">
+                <h3>Lub napisz do nas</h3>
+                <form class="contact-form" action="https://formspree.io/f/TUTAJ_WKLEJ_SWOJ_KOD" method="POST" onsubmit="wyslijFormularz(event)">
+                    <div class="form-group">
+                        <input type="text" name="imie" placeholder="Twoje imię" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" name="telefon" placeholder="Numer telefonu" pattern="[0-9\s-]{9,}" title="Numer telefonu powinien składać się z 9 cyfr" required oninput="formatujTelefon(this)">
+                    </div>
+                    <div class="form-group">
+                        <textarea name="wiadomosc" placeholder="Wiadomość (np. adres lokalu, metraż)" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-main">Wyślij zgłoszenie</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="trusted-section">
+                <h4>Zaufali nam</h4>
+                <div class="trusted-logos">
+                    <img src="image/logo/doners_kebab.png" alt="Partner 1">
+                    <img src="image/logo/prodom.webp" alt="Partner 2">
+                    <img src="image/logo/siepomaga.png" alt="Partner 3">
+                    <img src="image/logo/nopicture.png" alt="Partner 4">
+                </div>
+            </div>
+            <div class="footer-grid">
+                <div class="footer-info">
+                    <div class="logo">Rent<span>Master</span></div>
+                    <p>Lider podnajmu garaży i magazynów na Podlasiu i Mazurach.</p>
+                </div>
+                
+                <div class="footer-contact">
+                    <h4>Kontakt</h4>
+                    <p><a href="tel:+48574322909"><i class="fas fa-phone-alt"></i> +48 574 322 909 </a></p>
+                    <p><a href="mailto:biuro@rentmaster.pl"><i class="fas fa-envelope"></i> biuro@rentmaster.pl</a></p>
+                </div>
+
+                <div class="footer-social">
+                    <h4>Znajdź nas</h4>
+                    <a href="https://facebook.com/TwojProfil" target="_blank" class="fb-link">
+                        <i class="fab fa-facebook-square"></i> Facebook
+                    </a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2012 RentMaster Podlasie. Wszystkie prawa zastrzeżone.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Kontener Galerii (Lightbox) -->
+    <div id="lightbox" class="lightbox" onclick="if(event.target === this) zamknijGalerie()">
+        <span class="close" onclick="zamknijGalerie()">&times;</span>
+        <img class="lightbox-content" id="lightbox-img" src="">
+        <a class="prev" onclick="zmienZdjecie(-1)">&#10094;</a>
+        <a class="next" onclick="zmienZdjecie(1)">&#10095;</a>
+    </div>
+
+    <!-- Przycisk powrotu do góry -->
+    <button onclick="topFunction()" id="btn-back-to-top" title="Wróć na górę"><i class="fas fa-arrow-up"></i></button>
+
+    <script src="opisy.js"></script>
+</body>
+</html>
