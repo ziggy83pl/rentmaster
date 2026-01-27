@@ -54,7 +54,7 @@
             <div class="search-box">
                 <div class="search-field">
                     <i class="fas fa-map-marker-alt"></i>
-                    <select id="city-select">
+                    <select id="city">
                         <option value="all">Wszystkie miasta</option>
                         <option value="lomza">Łomża</option>
                         <option value="bialystok">Białystok</option>
@@ -64,7 +64,7 @@
                 </div>
                 <div class="search-field">
                     <i class="fas fa-warehouse"></i>
-                    <select id="type-select">
+                    <select id="type">
                         <option value="all">Wszystkie typy</option>
                         <option value="garage">Garaż</option>
                         <option value="storage">Magazyn</option>
@@ -99,8 +99,80 @@
                 <h2>Zarabiaj bez wysiłku na swojej nieruchomości</h2>
                 <p>Obsługujemy Łomżę, Ostrołękę, Białystok i Pisz</p>
             </div>
+
+            <div class="owner-grid">
+                <div class="owner-card">
+                    <i class="fas fa-city"></i>
+                    <h3>Masz lokal w mieście?</h3>
+                    <p>Mieszkanie, garaż czy magazyn – jeśli nie masz czasu na zarządzanie, szukanie najemców i pilnowanie płatności, zrób to z nami.</p>
+                </div>
+                <div class="owner-card">
+                    <i class="fas fa-handshake"></i>
+                    <h3>Zlec nam zarządzanie</h3>
+                    <p>Gwarantujemy stały czynsz dla Ciebie, a my zajmujemy się resztą. Sprawdź jak działa nasz model podnajmu.</p>
+                </div>
+                <div class="owner-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Zgłoś się do nas</h3>
+                    <p>Przygotujemy darmową wycenę potencjału Twojego garażu lub mieszkania w ciągu 24h.</p>
+                </div>
             </div>
+            
+            <div class="cta-center">
+                <a href="tel:+48574322909" class="btn-main"><i class="fas fa-phone"></i> Zadzwoń i porozmawiajmy</a>
+            </div>
+
+            <div class="contact-form-wrapper">
+                <h3>Lub napisz do nas</h3>
+                <form class="contact-form" onsubmit="wyslijFormularz(event)">
+                    <div class="form-group">
+                        <input type="text" name="imie" placeholder="Twoje imię" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" name="telefon" placeholder="Numer telefonu" pattern="[0-9\s-]{9,}" title="Numer telefonu powinien składać się z 9 cyfr" required oninput="formatujTelefon(this)">
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Twój email (opcjonalnie)">
+                    </div>
+                    <div class="form-group">
+                        <textarea name="wiadomosc" placeholder="Wiadomość (np. adres lokalu, metraż)" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-main">Wyślij zgłoszenie</button>
+                </form>
+            </div>
+        </div>
     </section>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="trusted-section">
+                <h4>Zaufali nam</h4>
+                <div class="trusted-logos">
+                    <img src="image/logo/doners_kebab.png" alt="Doners Kebab" onerror="this.style.display='none'">
+                    <img src="image/logo/prodom.webp" alt="PRODOM" onerror="this.style.display='none'">
+                    <img src="image/logo/siepomaga.png" alt="Siepomaga" onerror="this.style.display='none'">
+                </div>
+            </div>
+            <div class="footer-grid">
+                <div class="footer-info">
+                    <div class="logo">Rent<span>Master</span></div>
+                    <p>Lider podnajmu garaży i magazynów na Podlasiu i Mazurach.</p>
+                </div>
+                <div class="footer-contact">
+                    <h4>Kontakt</h4>
+                    <p><a href="tel:+48574322909"><i class="fas fa-phone-alt"></i> +48 574 322 909</a></p>
+                    <p><a href="mailto:biuro@rentmaster.pl"><i class="fas fa-envelope"></i> biuro@rentmaster.pl</a></p>
+                </div>
+                <div class="footer-social">
+                    <h4>Social Media</h4>
+                    <a href="#" class="fb-link"><i class="fab fa-facebook-square"></i> Facebook</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 RentMaster. Wszelkie prawa zastrzeżone.</p>
+            </div>
+        </div>
+    </footer>
 
     <div id="lightbox" class="lightbox" onclick="if(event.target === this) zamknijGalerie()">
         <span class="close" onclick="zamknijGalerie()">&times;</span>
@@ -111,91 +183,5 @@
 
     <script src="data.js"></script>
     <script src="opisy.js"></script>
-    <script>
-        let aktualnaGaleria = [];
-        let aktualnyIndeks = 0;
-
-        // Główna funkcja wyświetlająca ogłoszenia
-        function renderujOgloszenia(dane) {
-            const grid = document.getElementById('property-grid');
-            const noResults = document.getElementById('no-results');
-            grid.innerHTML = '';
-
-            // Filtrujemy tylko te, które są aktywne (jeśli masz takie pole w data.js)
-            const widoczne = dane.filter(item => item.enabled !== false);
-
-            if (widoczne.length === 0) {
-                noResults.style.display = 'block';
-                return;
-            }
-
-            noResults.style.display = 'none';
-            widoczne.forEach(item => {
-                const card = document.createElement('div');
-                card.className = `property-card ${item.isRented ? 'rented' : ''}`;
-                card.innerHTML = `
-                    <div class="property-img" onclick="otworzGalerie('${item.id}')">
-                        <img src="${item.mainImage}" alt="${item.title}" loading="lazy">
-                        ${item.isRented ? '<div class="rented-tag">WYNAJĘTE</div>' : ''}
-                        <div class="gallery-overlay"><i class="fas fa-camera"></i> ${1 + (item.gallery ? item.gallery.length : 0)}</div>
-                    </div>
-                    <div class="property-content">
-                        <h3>${item.title}</h3>
-                        <p class="price">${item.price.value} zł ${item.price.unit}</p>
-                        <p class="desc">${item.description}</p>
-                        <div class="property-footer">
-                            <span><i class="fas fa-map-marker-alt"></i> ${item.city}</span>
-                            <a href="tel:+48574322909" class="btn-main">Zadzwoń</a>
-                        </div>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        // Obsługa wyszukiwarki
-        function filtrujOgloszenia() {
-            const wybranyMiejsowość = document.getElementById('city-select').value;
-            const wybranyTyp = document.getElementById('type-select').value;
-
-            const wyniki = listingsData.filter(item => {
-                const miastoOk = wybranyMiejsowość === 'all' || item.city === wybranyMiejsowość;
-                const typOk = wybranyTyp === 'all' || item.type === wybranyTyp;
-                return miastoOk && typOk;
-            });
-
-            renderujOgloszenia(wyniki);
-        }
-
-        // Obsługa galerii Lightbox
-        function otworzGalerie(id) {
-            const item = listingsData.find(i => i.id === id);
-            if (!item) return;
-
-            aktualnaGaleria = [item.mainImage, ...(item.gallery || [])];
-            aktualnyIndeks = 0;
-            
-            document.getElementById('lightbox-img').src = aktualnaGaleria[0];
-            document.getElementById('lightbox').style.display = 'flex';
-        }
-
-        function zamknijGalerie() {
-            document.getElementById('lightbox').style.display = 'none';
-        }
-
-        function zmienZdjecie(n) {
-            aktualnyIndeks += n;
-            if (aktualnyIndeks >= aktualnaGaleria.length) aktualnyIndeks = 0;
-            if (aktualnyIndeks < 0) aktualnyIndeks = aktualnaGaleria.length - 1;
-            document.getElementById('lightbox-img').src = aktualnaGaleria[aktualnyIndeks];
-        }
-
-        // Inicjalizacja przy ładowaniu strony
-        window.onload = () => {
-            if (typeof listingsData !== 'undefined') {
-                renderujOgloszenia(listingsData);
-            }
-        };
-    </script>
 </body>
 </html>
