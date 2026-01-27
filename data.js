@@ -211,7 +211,7 @@ const listingsData = [
             "value": 1800,
             "unit": "/mc"
         },
-        "description": "<strong>Lokalizacja:</strong> Łomża, Centrum.<br><br>Przestronne mieszkanie 2-pokojowe idealne pod dalszy podnajem (np. dla pracowników lub studentów).<br>W pełni umeblowane, oddzielna kuchnia, balkon.",
+        "description": "<strong>Dostępność:</strong> <strong>Dostępność:</strong> <strong>Lokalizacja:</strong> Łomża, Centrum.<br><br>Przestronne mieszkanie 2-pokojowe idealne pod dalszy podnajem (np. dla pracowników lub studentów).<br>W pełni umeblowane, oddzielna ku<strong>Dostępność:</strong> <strong>Dostępność:</strong> chnia, balkon.",
         "gallery": [
             "image/uploads/1769554509567_579959177_10163702740772040_3426745509610764589_n.jpg",
             "image/uploads/1769554535258_483493818_10162550975622040_446188102175101858_n.jpg"
