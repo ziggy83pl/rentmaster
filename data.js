@@ -87,7 +87,7 @@ const listingsData = [
     {
         "id": "lomza-garaz-przykladowy",
         "enabled": true,
-        "isRented": true,
+        "isRented": false,
         "city": "lomza",
         "type": "garage",
         "title": "Garaż Murowany - Wojska Polskiego",
