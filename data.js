@@ -56,8 +56,8 @@ const listingsData = [
             "value": 150,
             "unit": "/mc"
         },
-        "description": "<strong>Lokalizacja:</strong> Białystok, Centrum.<br><br>Nowoczesny kontener magazynowy typu self-storage. Dostęp 24/7, teren monitorowany. Idealny do przechowywania mebli, opon, sprzętu sportowego.",
-        "isRented": true
+        "description": "<strong>Lokalizacja:</strong> Białystok, Centrum.<br><br>Nowoczesny kontener magazynowy typu self-storage. Dostęp 24/7, teren monitorowany. Idealny do przechowywania mebli, opon, sprzętu sportowego. test ",
+        "isRented": false
     },
     {
         "id": "ostroleka-kawalerka-1",
