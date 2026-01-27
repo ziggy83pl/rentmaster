@@ -28,7 +28,8 @@ const listingsData = [
             "unit": "/mc"
         },
         "description": "\n            <strong>Lokalizacja:</strong> Centrum, ul. Jagodna.<br><br>\n            Garaż/Magazyn do Wynajęcia w Piszu | Bezpieczne Przechowywanie!<br><br>\n            <strong>Typ:</strong> Garaż/Magazyn<br>\n            <strong>Dostępność:</strong> Do wynajęcia od zaraz<br>\n            <strong>Przeznaczenie:</strong> Idealne do bezpiecznego przechowywania pojazdu (samochód, motocykl) lub jako magazyn na cenne przedmioty, sprzęt budowlany/ogrodniczy, czy meble.<br>\n            <strong>Ochrona Sezonowa:</strong> Doskonałe miejsce do zabezpieczenia pojazdu na okres jesienno-zimowy (ochrona przed mrozem, śniegiem i wilgocią).<br><br>\n            <strong>Czynsz:</strong> 225 zł<br>\n            <strong>Kaucja:</strong> Wymagana w wysokości 225 zł.\n            <br><br>\n            <strong>Lokalizacja na mapie:</strong><br>\n            <iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2368.432264666068!2d21.80665327706354!3d53.62534865719321!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x471d6308d2545939%3A0x6730103036666666!2sJagodna%2C%2012-200%20Pisz!5e0!3m2!1spl!2spl!4v1700000000000!5m2!1spl!2spl\" width=\"100%\" height=\"300\" style=\"border:0; border-radius: 8px; margin-top: 10px; pointer-events: none;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>\n            <a href=\"https://www.google.com/maps/dir/?api=1&destination=Jagodna,Pisz\" target=\"_blank\" class=\"btn-navigate\"><i class=\"fas fa-location-arrow\"></i> Nawiguj do celu</a>\n        ",
-        "isRented": false
+        "isRented": false,
+        "isBargain": true
     },
     {
         "id": "bialystok-magazyn-1",
