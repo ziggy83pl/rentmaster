@@ -164,29 +164,5 @@ const listingsData = [
             "unit": "/mc"
         },
         "description": "<strong>Lokalizacja:</strong> Łomża, okolice Szosy Zambrowskiej.<br><br>Do wynajęcia utwardzony plac o powierzchni 500m2. Teren ogrodzony, dostęp do prądu i wody.<br>Idealny pod komis samochodowy, skład materiałów budowlanych lub parking dla maszyn."
-    },
-    {
-        "id": "lomza-mieszkanie-2",
-        "enabled": true,
-        "city": "lomza",
-        "type": "apartment",
-        "title": "Mieszkanie pod Podnajem",
-        "badge": "Łomża",
-        "mainImage": "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=500&auto=format&fit=crop",
-        "params": [
-            {
-                "icon": "fa-expand",
-                "text": "48m²"
-            },
-            {
-                "icon": "fa-bed",
-                "text": "2 Pokoje"
-            }
-        ],
-        "price": {
-            "value": 1800,
-            "unit": "/mc"
-        },
-        "description": "<strong>Lokalizacja:</strong> Łomża, Centrum.<br><br>Przestronne mieszkanie 2-pokojowe idealne pod dalszy podnajem (np. dla pracowników lub studentów).<br>W pełni umeblowane, oddzielna kuchnia, balkon."
     }
 ];
