@@ -92,11 +92,12 @@ const listingsData = [
         "isRented": false,
         "city": "lomza",
         "type": "garage",
-        "title": "Garaż Murowany - Wojska Polskiego",
+        "title": "Masz garaż w Łomży? ",
         "badge": "Łomża",
         "mainImage": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=500&auto=format&fit=crop",
         "gallery": [
-            "https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=500&auto=format&fit=crop"
+            "https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=500&auto=format&fit=crop",
+            "https://ziggy83pl.github.io/rentmaster/image/uploads/1769607758300_garaz.jpg"
         ],
         "params": [
             {
@@ -109,10 +110,10 @@ const listingsData = [
             }
         ],
         "price": {
-            "value": 300,
+            "value": 150,
             "unit": "/mc"
         },
-        "description": "<strong>Lokalizacja:</strong> Łomża, osiedle Południe.<br><br>Suchy garaż z kanałem i prądem. Dostępny od zaraz."
+        "description": "Masz garaż w Łomży? Sprawimy, że będzie zarabiał bez Twojego udziału!\n\nPosiadasz garaż, którego nie używasz, ale nie masz czasu na użeranie się z telefonami i pokazywanie go każdemu chętnemu? A może mieszkasz poza Łomżą i chcesz mieć pewność, że Twój obiekt jest w dobrych rękach?\n\nRentMaster – Twój partner w zarządzaniu garażami:\n\nWeryfikacja najemców: Dbamy o to, by w Twoim garażu parkował samochód lub stały czyste rzeczy, a nie odpady czy materiały niebezpieczne.\n\nDopilnowanie płatności: Przejmujemy na siebie monitoring wpłat. Ty otrzymujesz czynsz bez konieczności przypominania się najemcy.\n\nOpieka nad kluczami i umowami: Zajmujemy się przekazaniem lokalu i formalnościami. Ty oszczędzasz czas na dojazdach.\n\nMamy duże doświadczenie w wynajmie powierzchni magazynowych i postojowych w Łomży. Znamy ten rynek jak nikt inny. Zadzwoń do nas – sprawdzimy potencjał Twojego garażu i pomożemy Ci na nim zarobić!"
     },
     {
         "id": "lomza-kawalerka-1",
