@@ -248,6 +248,13 @@ body {
 
 .price span { font-size: 1rem; color: var(--text); font-weight: 400; }
 
+.availability {
+    font-size: 0.95rem;
+    color: var(--secondary);
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
 .buttons-container {
     display: flex;
     gap: 10px;
@@ -704,6 +711,31 @@ body {
     border: 2px solid #fff;
     letter-spacing: 2px;
 }
+
+/* =========================================
+   BADGE "OKAZJA"
+   ========================================= */
+.bargain-card {
+    border: 2px solid #e67e22;
+    box-shadow: 0 0 15px rgba(230, 126, 34, 0.15);
+}
+
+.badge-bargain {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #e67e22;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    z-index: 4;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
 
 /* =========================================
    BADGE "WYNAJĘTE"

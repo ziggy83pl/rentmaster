@@ -13,6 +13,11 @@ function generateListingCard(data) {
         ? `<div class="price">${data.price.value} zł <span>${data.price.unit}</span></div>` 
         : '';
 
+    // Generuje datę dostępności
+    const availabilityHTML = data.availabilityDate 
+        ? `<div class="availability"><i class="far fa-calendar-alt"></i> Dostępne: ${data.availabilityDate}</div>` 
+        : '';
+
     // Dodaje specjalny styl dla obrazka, jeśli zdefiniowany
     const imageStyle = data.imageStyle === 'contain' 
         ? `background-size: contain; background-repeat: no-repeat; background-position: center; background-color: #222;` 
@@ -23,10 +28,19 @@ function generateListingCard(data) {
         ? `<div class="rented-overlay"><div class="rented-text">WYNAJĘTE</div></div>` 
         : '';
 
+    // Generuje badge "OKAZJA"
+    const bargainBadge = data.isBargain 
+        ? `<span class="badge-bargain">OKAZJA</span>` 
+        : '';
+
+    // Ustawienie zdjęcia głównego lub fallback (nopicture.png)
+    const bgImage = data.mainImage ? data.mainImage : 'image/logo/nopicture.png';
+
     return `
-        <div class="property-card" id="oferta-${data.id}" data-city="${data.city}" data-type="${data.type}">
-            <div class="property-img" style="background-image: url('${data.mainImage}'); ${imageStyle}" onclick="otworzGalerie('${data.id}')">
+        <div class="property-card ${data.isBargain ? 'bargain-card' : ''}" id="oferta-${data.id}" data-city="${data.city}" data-type="${data.type}">
+            <div class="property-img" style="background-image: url('${bgImage}'); ${imageStyle}" onclick="otworzGalerie('${data.id}')">
                 <span class="badge">${data.badge}</span>
+                ${bargainBadge}
                 ${rentedHTML}
                 ${data.gallery && data.gallery.length > 0 ? '<div class="gallery-overlay"><i class="fas fa-camera"></i> Kliknij, aby zobaczyć galerię</div>' : ''}
             </div>
@@ -34,6 +48,7 @@ function generateListingCard(data) {
                 <h3>${data.title}</h3>
                 ${paramsHTML}
                 ${priceHTML}
+                ${availabilityHTML}
                 <div class="buttons-container">
                     <button class="btn-view" onclick="pokazOpis('${data.id}', this)">Zobacz szczegóły</button>
                     <button class="btn-share" onclick="udostepnij('${data.id}')" title="Kopiuj link do ogłoszenia"><i class="fas fa-share-alt"></i></button>
@@ -107,6 +122,9 @@ function zmienZdjecie(kierunek) {
 
 function zaktualizujLightbox() {
     const img = document.getElementById('lightbox-img');
+    img.onerror = function() {
+        this.src = 'image/logo/nopicture.png';
+    };
     img.src = aktualnaGaleria[aktualnyIndeks];
     img.style.transform = `scale(${aktualnyZoom})`;
 }
@@ -246,11 +264,16 @@ window.addEventListener('DOMContentLoaded', () => {
     if (!propertyGrid) return;
 
     // Generowanie kart ogłoszeń
-    listingsData.forEach(listing => {
-        if (listing.enabled) {
-            propertyGrid.innerHTML += generateListingCard(listing);
-        }
-    });
+    if (typeof listingsData !== 'undefined' && Array.isArray(listingsData)) {
+        listingsData.forEach(listing => {
+            if (listing.enabled) {
+                propertyGrid.innerHTML += generateListingCard(listing);
+            }
+        });
+    }
+
+    // Uruchom filtrowanie na starcie, aby obsłużyć brak wyników lub domyślne filtry
+    filtrujOgloszenia();
 
     // Otwieranie ogłoszenia z linku (hash)
     if (window.location.hash && window.location.hash.startsWith('#oferta-')) {
