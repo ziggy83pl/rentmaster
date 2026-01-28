@@ -62,9 +62,9 @@ const listingsData = [
     {
         "id": "ostroleka-kawalerka-1",
         "enabled": true,
-        "city": "ostroleka",
+        "city": "lomza",
         "type": "apartment",
-        "title": "Kawalerka po remoncie",
+        "title": "Twoje mieszkanie w Łomży w dobrych rękach – nawet gdy Ty jesteś daleko.",
         "badge": "Ostrołęka",
         "mainImage": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=500&auto=format&fit=crop",
         "gallery": [
@@ -73,7 +73,7 @@ const listingsData = [
         "params": [
             {
                 "icon": "fa-expand",
-                "text": "28m²"
+                "text": "38m²"
             },
             {
                 "icon": "fa-bed",
@@ -81,10 +81,10 @@ const listingsData = [
             }
         ],
         "price": {
-            "value": 1600,
+            "value": 1200,
             "unit": "/mc"
         },
-        "description": "<strong>Lokalizacja:</strong> Ostrołęka, Centrum.<br><br>Przytulna kawalerka po generalnym remoncie. W pełni umeblowana i wyposażona. Gotowa do zamieszkania od zaraz."
+        "description": "Mieszkasz za granicą lub w innym mieście i boisz się o swoje mieszkanie w Łomży? Zarządzanie najmem na odległość to stres i ryzyko. RentMaster przejmie to na siebie.\n\nDlaczego warto nam zaufać?\n\nSelekcja lokatorów: Skrupulatnie weryfikujemy osoby, którym wynajmujemy Twój lokal. Szukamy tylko odpowiedzialnych najemców.\n\nDopilnowanie płatności: Monitorujemy terminowość wpłat, aby Twój czynsz zawsze trafiał do Ciebie na czas.\n\nOpieka techniczna: Nie musisz przyjeżdżać do każdej usterki. Organizujemy drobne naprawy i dbamy o stan techniczny nieruchomości.\n\nDoświadczenie w podnajmie: Wiemy, jak przygotować umowę, która chroni Twoje interesy.\n\nOszczędź czas i unikaj stresujących telefonów. Pomożemy Ci zarabiać na wynajmie bez zbędnego wysiłku. Zadzwoń lub napisz – sprawdzimy, jak możemy pomóc przy Twoim mieszkaniu!"
     },
     {
         "id": "lomza-garaz-przykladowy",
