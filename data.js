@@ -64,7 +64,7 @@ const listingsData = [
         "enabled": true,
         "city": "lomza",
         "type": "apartment",
-        "title": "Twoje mieszkanie w Łomży w dobrych rękach – nawet gdy Ty jesteś daleko.",
+        "title": "Twoje mieszkanie w Łomży w dobrych rękach.",
         "badge": "Ostrołęka",
         "mainImage": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=500&auto=format&fit=crop",
         "gallery": [
@@ -84,7 +84,7 @@ const listingsData = [
             "value": 1200,
             "unit": "/mc"
         },
-        "description": "Mieszkasz za granicą lub w innym mieście i boisz się o swoje mieszkanie w Łomży? Zarządzanie najmem na odległość to stres i ryzyko. RentMaster przejmie to na siebie.\n\nDlaczego warto nam zaufać?\n\nSelekcja lokatorów: Skrupulatnie weryfikujemy osoby, którym wynajmujemy Twój lokal. Szukamy tylko odpowiedzialnych najemców.\n\nDopilnowanie płatności: Monitorujemy terminowość wpłat, aby Twój czynsz zawsze trafiał do Ciebie na czas.\n\nOpieka techniczna: Nie musisz przyjeżdżać do każdej usterki. Organizujemy drobne naprawy i dbamy o stan techniczny nieruchomości.\n\nDoświadczenie w podnajmie: Wiemy, jak przygotować umowę, która chroni Twoje interesy.\n\nOszczędź czas i unikaj stresujących telefonów. Pomożemy Ci zarabiać na wynajmie bez zbędnego wysiłku. Zadzwoń lub napisz – sprawdzimy, jak możemy pomóc przy Twoim mieszkaniu!"
+        "description": "Twoje mieszkanie w Łomży w dobrych rękach – nawet gdy Ty jesteś daleko.\n\nMieszkasz za granicą lub w innym mieście i boisz się o swoje mieszkanie w Łomży? Zarządzanie najmem na odległość to stres i ryzyko. RentMaster przejmie to na siebie.\n\nDlaczego warto nam zaufać?\n\nSelekcja lokatorów: Skrupulatnie weryfikujemy osoby, którym wynajmujemy Twój lokal. Szukamy tylko odpowiedzialnych najemców.\n\nDopilnowanie płatności: Monitorujemy terminowość wpłat, aby Twój czynsz zawsze trafiał do Ciebie na czas.\n\nOpieka techniczna: Nie musisz przyjeżdżać do każdej usterki. Organizujemy drobne naprawy i dbamy o stan techniczny nieruchomości.\n\nDoświadczenie w podnajmie: Wiemy, jak przygotować umowę, która chroni Twoje interesy.\n\nOszczędź czas i unikaj stresujących telefonów. Pomożemy Ci zarabiać na wynajmie bez zbędnego wysiłku. Zadzwoń lub napisz – sprawdzimy, jak możemy pomóc przy Twoim mieszkaniu!"
     },
     {
         "id": "lomza-garaz-przykladowy",
