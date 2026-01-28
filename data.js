@@ -164,6 +164,9 @@ const listingsData = [
             "value": 800,
             "unit": "/mc"
         },
-        "description": "<strong>Lokalizacja:</strong> Łomża, okolice Szosy Zambrowskiej.<br><br>Do wynajęcia utwardzony plac o powierzchni 500m2. Teren ogrodzony, dostęp do prądu i wody.<br>Idealny pod komis samochodowy, skład materiałów budowlanych lub parking dla maszyn."
+        "description": "Firma RentMaster, lider w branży zarządzania powierzchniami magazynowymi na Podlasiu, poszukuje do wydzierżawienia terenu na terenie Łomży.\n\nCzego szukamy?\n\nPowierzchnia: Około 10 arów (rozważymy również mniejsze oraz znacznie większe grunty).\n\nLokalizacja: Łomża i bezpośrednie okolice (preferowany dobry dojazd).\n\nPrzeznaczenie: Teren pod cele składowe/magazynowe.\n\nCo oferujemy właścicielowi?\n\nStabilność: Interesuje nas długoterminowa współpraca i regularne płatności.\n\nPrzejrzyste warunki: Jeśli Twoja działka spełni nasze wymagania techniczne, gwarantujemy atrakcyjne warunki finansowe ustalane indywidualnie.\n\nProfesjonalizm: Jesteśmy rzetelnym partnerem, dbamy o porządek i przestrzeganie ustaleń zawartych w umowie.\n\nMasz grunt, który stoi nieużywany i generuje tylko koszty (podatki)? Zamień go na stały dochód z dzierżawy.\n\nZadzwoń do nas i porozmawiajmy o szczegółach",
+        "gallery": [
+            "https://ziggy83pl.github.io/rentmaster/image/uploads/1769608080228_teren.webp"
+        ]
     }
 ];
