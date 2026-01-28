@@ -188,34 +188,5 @@ const listingsData = [
             "unit": "/mc"
         },
         "description": "<strong>Lokalizacja:</strong> Łomża, Centrum.<br><br>Przestronne mieszkanie 2-pokojowe idealne pod dalszy podnajem (np. dla pracowników lub studentów).<br>W pełni umeblowane, oddzielna kuchnia, balkon."
-    },
-    {
-        "id": "lomza-mieszkanie-2-kopia-613",
-        "enabled": true,
-        "city": "lomza",
-        "type": "apartment",
-        "title": "Mieszkanie pod Podnajem (KOPIA)",
-        "badge": "Łomża",
-        "mainImage": "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=500&auto=format&fit=crop",
-        "params": [
-            {
-                "icon": "fa-expand",
-                "text": "48m²"
-            },
-            {
-                "icon": "fa-bed",
-                "text": "2 Pokoje"
-            }
-        ],
-        "price": {
-            "value": 1800,
-            "unit": "/mc"
-        },
-        "description": "<strong>Dostępność:</strong> <strong>Dostępność:</strong> <strong>Lokalizacja:</strong> Łomża, Centrum.<br><br>Przestronne mieszkanie 2-pokojowe idealne pod dalszy podnajem (np. dla pracowników lub studentów).<br>W pełni umeblowane, oddzielna ku<strong>Dostępność:</strong> <strong>Dostępność:</strong> chnia, balkon.",
-        "gallery": [
-            "image/uploads/1769554509567_579959177_10163702740772040_3426745509610764589_n.jpg",
-            "image/uploads/1769554535258_483493818_10162550975622040_446188102175101858_n.jpg"
-        ],
-        "isBargain": true
     }
 ];
