@@ -51,6 +51,7 @@ function generateListingCard(data) {
                 ${availabilityHTML}
                 <div class="buttons-container">
                     <button class="btn-view" onclick="pokazOpis('${data.id}', this)">Zobacz szczegóły</button>
+                    <a href="tel:+48574322909" class="btn-call" title="Zadzwoń"><i class="fas fa-phone"></i></a>
                     <button class="btn-share" onclick="udostepnij('${data.id}')" title="Kopiuj link do ogłoszenia"><i class="fas fa-share-alt"></i></button>
                 </div>
                 <div id="opis-${data.id}" class="opis-animacja" style="color: #444; font-size: 0.95rem; line-height: 1.5;"></div>
@@ -241,7 +242,16 @@ function topFunction() {
 }
 
 function udostepnij(listingId) {
-    const url = window.location.origin + window.location.pathname + '#oferta-' + listingId;
+    const listing = listingsData.find(l => l.id === listingId);
+    let url;
+
+    // Sprawdź czy oferta ma dedykowany plik do udostępniania (dla Facebooka)
+    if (listing && listing.shareLink) {
+        const baseUrl = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
+        url = baseUrl + listing.shareLink;
+    } else {
+        url = window.location.origin + window.location.pathname + '#oferta-' + listingId;
+    }
 
     if (navigator.share) {
         navigator.share({
@@ -275,6 +285,10 @@ window.addEventListener('DOMContentLoaded', () => {
     // Uruchom filtrowanie na starcie, aby obsłużyć brak wyników lub domyślne filtry
     filtrujOgloszenia();
 
+    // Ustaw odpowiednią ikonę w wyszukiwarce na starcie
+    const typeSelect = document.getElementById('type');
+    if (typeSelect) zmienIkoneTypu(typeSelect);
+
     // Otwieranie ogłoszenia z linku (hash)
     if (window.location.hash && window.location.hash.startsWith('#oferta-')) {
         const listingId = window.location.hash.substring(8); // #oferta- -> 8 znaków
@@ -306,4 +320,47 @@ function handleGesture() {
 
     if (touchEndX < touchStartX - swipeThreshold) zmienZdjecie(1);
     if (touchEndX > touchStartX + swipeThreshold) zmienZdjecie(-1);
+}
+
+function zmienIkoneTypu(select) {
+    const icon = document.getElementById('type-icon');
+    if (!icon) return;
+
+    icon.className = 'fas'; // Reset klas, zostawiamy bazową FontAwesome
+
+    switch (select.value) {
+        case 'garage': icon.classList.add('fa-warehouse'); break;
+        case 'storage': icon.classList.add('fa-boxes'); break;
+        case 'apartment': icon.classList.add('fa-building'); break;
+        case 'plot': icon.classList.add('fa-layer-group'); break;
+        case 'other': icon.classList.add('fa-question-circle'); break;
+        default: icon.classList.add('fa-warehouse'); break;
+    }
+}
+
+// Obsługa PWA (Service Worker i Instalacja)
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js')
+        .then(reg => console.log('Service Worker zarejestrowany:', reg))
+        .catch(err => console.log('Błąd rejestracji Service Worker:', err));
+}
+
+let deferredPrompt;
+const installBtn = document.getElementById('install-btn');
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    if (installBtn) installBtn.style.display = 'inline-block';
+});
+
+if (installBtn) {
+    installBtn.addEventListener('click', (e) => {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then((choiceResult) => {
+                deferredPrompt = null;
+            });
+        }
+    });
 }
