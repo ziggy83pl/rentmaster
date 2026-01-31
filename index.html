@@ -18,20 +18,22 @@
     <meta property="og:image" content="https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1500&auto=format&fit=crop">
     <meta property="og:url" content="https://ziggy83pl.github.io/rentmaster/">
     <meta property="og:type" content="website">
+    <meta name="theme-color" content="#1a2a6c">
 
     <link rel="icon" type="image/png" sizes="32x32" href="image/logo/favicon-32x32.png">
+    <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     
-    <div class="ribbon-wrapper">
+    <!-- <div class="ribbon-wrapper">
         <div class="ribbon">Strona w przebudowie</div>
-    </div>
+    </div> -->
 
     <nav class="navbar">
         <div class="container nav-flex">
-            <div class="logo">Rent<span>Master</span></div>
+            <a href="index.html" class="logo" style="text-decoration: none;">Rent<span>Master</span></a>
             <ul class="nav-links">
                 <li><a href="#oferty">Oferty</a></li>
                 <li><a href="#miasta">Miasta</a></li>
@@ -63,12 +65,14 @@
                     </select>
                 </div>
                 <div class="search-field">
-                    <i class="fas fa-warehouse"></i>
-                    <select id="type">
+                    <i class="fas fa-warehouse" id="type-icon"></i>
+                    <select id="type" onchange="zmienIkoneTypu(this)">
                         <option value="all">Wszystkie typy</option>
                         <option value="garage">Garaż</option>
                         <option value="storage">Magazyn</option>
                         <option value="apartment">Mieszkanie</option>
+                        <option value="plot">Plac / Działka</option>
+                        <option value="other">Inne</option>
                     </select>
                 </div>
                 <button class="btn-search" onclick="filtrujOgloszenia()">Szukaj ofert</button>
@@ -148,20 +152,21 @@
             <div class="trusted-section">
                 <h4>Zaufali nam</h4>
                 <div class="trusted-logos">
-                    <img src="image/logo/doners_kebab.png" alt="Doners Kebab" onerror="this.style.display='none'">
-                    <img src="image/logo/prodom.webp" alt="PRODOM" onerror="this.style.display='none'">
-                    <img src="image/logo/siepomaga.png" alt="Siepomaga" onerror="this.style.display='none'">
+                    <a href="https://www.facebook.com/DonersLomza?locale=pl_PL" target="_blank" title="Doners Kebab Łomża"><img src="image/logo/doners_kebab.png" alt="Doners Kebab" onerror="this.style.display='none'"></a>
+                    <a href="https://ziggy83pl.github.io/Prodom-budownictwo/" target="_blank" title="PRODOM BUDOWNICTWO"><img src="image/logo/prodom.webp" alt="PRODOM" onerror="this.style.display='none'"></a>
+                    <a href="https://www.siepomaga.pl" target="_blank" title="Wspieramy Siepomaga.pl"><img src="image/logo/siepomaga.png" alt="Siepomaga" onerror="this.style.display='none'"></a>
+                    <a href="https://ziggy83pl.github.io/PawelSzczesny/index.html" target="_blank" title="CZŁOWIEK, KTÓRY WYKONA WSZYSTKO"><img src="image/logo/pawel.png" alt="Pawel" onerror="this.style.display='none'"></a>
                 </div>
             </div>
             <div class="footer-grid">
                 <div class="footer-info">
-                    <div class="logo">Rent<span>Master</span></div>
+                    <a href="index.html" class="logo" style="text-decoration: none;">Rent<span>Master</span></a>
                     <p>Lider podnajmu garaży i magazynów na Podlasiu i Mazurach.</p>
                 </div>
                 <div class="footer-contact">
                     <h4>Kontakt</h4>
                     <p><a href="tel:+48574322909"><i class="fas fa-phone-alt"></i> +48 574 322 909</a></p>
-                    <p><a href="mailto:biuro@rentmaster.pl"><i class="fas fa-envelope"></i> biuro@rentmaster.pl</a></p>
+                    <!-- <p><a href="mailto:biuro@rentmaster.pl"><i class="fas fa-envelope"></i> biuro@rentmaster.pl</a></p> -->
                 </div>
                 <div class="footer-social">
                     <h4>Social Media</h4>
@@ -169,7 +174,8 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 RentMaster. Wszelkie prawa zastrzeżone.</p>
+                <p>&copy; 2019 RentMaster. Wszelkie prawa zastrzeżone.</p>
+                <button id="install-btn" class="btn-install" style="display: none;"><i class="fas fa-download"></i> Zainstaluj Aplikację</button>
             </div>
         </div>
     </footer>
