@@ -210,11 +210,11 @@ function wyslijFormularz(event) {
             wrapper.appendChild(successDiv);
 
             document.getElementById('new-message-btn').addEventListener('click', () => {
-                successDiv.remove();
-                originalChildren.forEach(child => child.style.display = '');
-                form.reset();
-                btn.innerText = originalText;
-                btn.disabled = false;
+                successDiv.remove(); // Usuwa komunikat o sukcesie
+                originalChildren.forEach(child => child.style.display = ''); // Przywraca formularz
+                form.reset(); // Czyści pola (imię, email, itp.)
+                btn.innerText = originalText; // Przywraca napis na przycisku
+                btn.disabled = false; // Odblokowuje przycisk
             });
         } else {
             alert("Wystąpił problem z wysłaniem formularza. Spróbuj ponownie później.");
@@ -395,3 +395,4 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 });
+
