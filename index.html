@@ -130,7 +130,7 @@
                 <h3>Lub napisz do nas</h3>
                 <form class="contact-form" onsubmit="wyslijFormularz(event)">
                     <div class="form-group">
-                        <input type="text" name="imie" placeholder="Twoje imię" required>
+                        <input type="text" name="imie" placeholder="Twoje imię" required spellcheck="true">
                     </div>
                     <div class="form-group">
                         <input type="tel" name="telefon" placeholder="Numer telefonu" pattern="[0-9\s-]{9,}" title="Numer telefonu powinien składać się z 9 cyfr" required oninput="formatujTelefon(this)">
@@ -139,7 +139,7 @@
                         <input type="email" name="email" placeholder="Twój email (opcjonalnie)">
                     </div>
                     <div class="form-group">
-                        <textarea name="wiadomosc" placeholder="Wiadomość (np. adres lokalu, metraż)" rows="4" required></textarea>
+                        <textarea name="wiadomosc" placeholder="Wiadomość (np. adres lokalu, metraż)" rows="4" required spellcheck="true"></textarea>
                     </div>
                     <button type="submit" class="btn-main">Wyślij zgłoszenie</button>
                 </form>
@@ -149,16 +149,12 @@
 
     <footer class="main-footer">
         <div class="container">
-            <div class="trusted-section">
+            <div class="trusted-section fade-in-section">
+                <!-- Loga innych stron -->
                 <h4>Zaufali nam</h4>
-                <div class="trusted-logos">
-                    <a href="https://www.facebook.com/DonersLomza?locale=pl_PL" target="_blank" title="Doners Kebab Łomża"><img src="image/logo/doners_kebab.png" alt="Doners Kebab" onerror="this.style.display='none'"></a>
-                    <a href="https://ziggy83pl.github.io/Prodom-budownictwo/" target="_blank" title="PRODOM BUDOWNICTWO"><img src="image/logo/prodom.webp" alt="PRODOM" onerror="this.style.display='none'"></a>
-                    <a href="https://www.siepomaga.pl" target="_blank" title="Wspieramy Siepomaga.pl"><img src="image/logo/siepomaga.png" alt="Siepomaga" onerror="this.style.display='none'"></a>
-                    <a href="https://ziggy83pl.github.io/PawelSzczesny/index.html" target="_blank" title="CZŁOWIEK, KTÓRY WYKONA WSZYSTKO"><img src="image/logo/pawel.png" alt="Pawel" onerror="this.style.display='none'"></a>
-                </div>
+                <div id="global-trusted-logos" class="trusted-logos"></div>
             </div>
-            <div class="footer-grid">
+            <div class="footer-grid fade-in-section">
                 <div class="footer-info">
                     <a href="index.html" class="logo" style="text-decoration: none;">Rent<span>Master</span></a>
                     <p>Lider podnajmu garaży i magazynów na Podlasiu i Mazurach.</p>
@@ -173,8 +169,8 @@
                     <a href="#" class="fb-link"><i class="fab fa-facebook-square"></i> Facebook</a>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2019 RentMaster. Wszelkie prawa zastrzeżone.</p>
+            <div class="footer-bottom fade-in-section">
+                <p>&copy; 2019 RentMaster. Wszelkie prawa zastrzeżone. | Realizacja: <a href="https://ziggy83pl.github.io/coder/" target="_blank" class="logo-tooltip" data-tooltip="Zamów profesjonalną stronę WWW">Enterprise</a></p>
                 <button id="install-btn" class="btn-install" style="display: none;"><i class="fas fa-download"></i> Zainstaluj Aplikację</button>
             </div>
         </div>
@@ -189,5 +185,6 @@
 
     <script src="data.js"></script>
     <script src="opisy.js"></script>
+    <script src="portfolio-logos.js"></script>
 </body>
 </html>

@@ -160,7 +160,7 @@ function filtrujOgloszenia() {
     const komunikat = document.getElementById('no-results');
     if (komunikat) komunikat.style.display = znaleziono ? 'none' : 'block';
 }
-
+//Formularz kontaktowy - wysyłka AJAX i walidacja
 function wyslijFormularz(event) {
     event.preventDefault();
     const form = event.target;
@@ -190,18 +190,32 @@ function wyslijFormularz(event) {
             email: form.querySelector('input[name="email"]').value,
             wiadomosc: form.querySelector('textarea[name="wiadomosc"]').value,
             _subject: "Nowe zapytanie RentMaster",
+            _captcha: "false",
             _autoresponse: "Dziękujemy za wiadomość! Otrzymaliśmy Twoje zgłoszenie i skontaktujemy się z Tobą wkrótce."
         })
     })
     .then(response => {
         if (response.ok) {
-            wrapper.innerHTML = `
-                <div style="text-align: center; padding: 20px;">
-                    <i class="fas fa-check-circle" style="font-size: 3rem; color: #2ecc71; margin-bottom: 20px;"></i>
-                    <h3 style="color: #1a2a6c;">Dziękujemy za wiadomość!</h3>
-                    <p>Skontaktujemy się z Tobą w ciągu 24 godzin.</p>
-                </div>
+            const originalChildren = Array.from(wrapper.children);
+            originalChildren.forEach(child => child.style.display = 'none');
+
+            const successDiv = document.createElement('div');
+            successDiv.className = 'form-success';
+            successDiv.innerHTML = `
+                <i class="fas fa-check-circle" style="font-size: 3rem; color: #2ecc71; margin-bottom: 20px;"></i>
+                <h3>Dziękujemy za wiadomość!</h3>
+                <p>Skontaktujemy się z Tobą w ciągu 24 godzin.</p>
+                <button type="button" id="new-message-btn" class="btn-main" style="margin-top: 20px;">Wyślij kolejną wiadomość</button>
             `;
+            wrapper.appendChild(successDiv);
+
+            document.getElementById('new-message-btn').addEventListener('click', () => {
+                successDiv.remove();
+                originalChildren.forEach(child => child.style.display = '');
+                form.reset();
+                btn.innerText = originalText;
+                btn.disabled = false;
+            });
         } else {
             alert("Wystąpił problem z wysłaniem formularza. Spróbuj ponownie później.");
             throw new Error('Błąd wysyłki');
@@ -364,3 +378,19 @@ if (installBtn) {
         }
     });
 }
+
+// Obsługa animacji Fade-in (Pojawianie się elementów przy przewijaniu)
+document.addEventListener("DOMContentLoaded", () => {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in-section').forEach(section => {
+        observer.observe(section);
+    });
+});

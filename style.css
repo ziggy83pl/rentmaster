@@ -420,6 +420,19 @@ body {
     opacity: 0.6;
 }
 
+.footer-bottom a {
+    color: var(--white);
+    font-weight: bold;
+    text-decoration: none;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+}
+
+.footer-bottom a:hover {
+    color: var(--secondary); /* Zielony kolor RentMaster */
+    opacity: 1;
+}
+
 /* Poprawka responsywności */
 @media (max-width: 768px) {
     .owner-section { padding: 50px 0; }
@@ -502,10 +515,10 @@ body {
 
 .trusted-logos {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     gap: 40px;
-    flex-wrap: wrap;
 }
 
 .trusted-logos a {
@@ -513,18 +526,65 @@ body {
 }
 
 .trusted-logos img {
-    max-height: 100px;
-    max-width: 150px;
-    opacity: 0.6;
-    transition: opacity 0.3s, filter 0.3s, transform 0.3s;
-    filter: grayscale(0%) brightness(100%); /* Efekt białych logo */
+    height: 70px;
+    width: 70px;
+    object-fit: contain;
     border-radius: 50%;
+    background-color: #ffffff;
+    padding: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    filter: grayscale(100%);
+    opacity: 0.9;
+    transition: all 0.3s ease;
 }
 
 .trusted-logos img:hover {
+    filter: grayscale(0%);
     opacity: 1;
-    filter: none; /* Przywraca kolory po najechaniu */
-    transform: scale(1.1); /* Dodajemy lekkie powiększenie */
+    transform: scale(1.1);
+    box-shadow: 0 0 20px var(--hover-color);
+}
+
+/* Custom Tooltip (Dymek z opisem) */
+.logo-tooltip {
+    position: relative;
+    display: inline-block;
+}
+.logo-tooltip::before, .logo-tooltip::after {
+    position: absolute;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    pointer-events: none;
+    z-index: 1100;
+}
+.logo-tooltip::after {
+    content: attr(data-tooltip);
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: var(--secondary);
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    margin-bottom: 12px;
+}
+.logo-tooltip::before {
+    content: '';
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    border: 6px solid transparent;
+    border-top-color: var(--secondary);
+    margin-bottom: 0px;
+}
+.logo-tooltip:hover::before, .logo-tooltip:hover::after {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
 }
 
 /* Przycisk nawigacji w opisie */
@@ -806,4 +866,34 @@ body {
     background-color: rgba(255, 255, 255, 0.1);
     border-color: var(--white);
     color: var(--white);
+}
+
+/* Potwierdzenie wysłania formularza */
+.form-success {
+    text-align: center;
+    padding: 40px;
+    background: white;
+    border-radius: 12px;
+    border: 2px solid var(--primary);
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.form-success h3 { color: var(--primary); margin-bottom: 15px; font-size: 1.8rem; }
+.form-success p { color: var(--text); font-size: 1.1rem; }
+
+@keyframes popIn {
+    0% { opacity: 0; transform: scale(0.8); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+/* Animacje wejścia (Fade-in) */
+.fade-in-section {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    will-change: opacity, visibility;
+}
+
+.fade-in-section.is-visible {
+    opacity: 1;
+    transform: translateY(0);
 }
