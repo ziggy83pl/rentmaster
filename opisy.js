@@ -189,7 +189,7 @@ function wyslijFormularz(event) {
             telefon: form.querySelector('input[name="telefon"]').value,
             email: form.querySelector('input[name="email"]').value,
             wiadomosc: form.querySelector('textarea[name="wiadomosc"]').value,
-            _subject: "Nowe zapytanie RentMaster",
+            _subject: "---> Nowe zapytanie od RentMaster <---",
             _captcha: "false",
             _autoresponse: "Dziękujemy za wiadomość! Otrzymaliśmy Twoje zgłoszenie i skontaktujemy się z Tobą wkrótce."
         })
@@ -204,7 +204,7 @@ function wyslijFormularz(event) {
             successDiv.innerHTML = `
                 <i class="fas fa-check-circle" style="font-size: 3rem; color: #2ecc71; margin-bottom: 20px;"></i>
                 <h3>Dziękujemy za wiadomość!</h3>
-                <p>Skontaktujemy się z Tobą w ciągu 24 godzin.</p>
+                <p>Skontaktujemy się z Tobą.</p>
                 <button type="button" id="new-message-btn" class="btn-main" style="margin-top: 20px;">Wyślij kolejną wiadomość</button>
             `;
             wrapper.appendChild(successDiv);
@@ -393,4 +393,5 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll('.fade-in-section').forEach(section => {
         observer.observe(section);
     });
+
 });
