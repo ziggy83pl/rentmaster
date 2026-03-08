@@ -270,10 +270,9 @@ function udostepnij(listingId) {
 
     // Sprawdź czy oferta ma dedykowany plik do udostępniania (dla Facebooka)
     if (listing && listing.shareLink) {
-        const baseUrl = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
-        url = baseUrl + listing.shareLink;
+        url = new URL(listing.shareLink, window.location.origin + '/').href;
     } else {
-        url = window.location.origin + window.location.pathname + '#oferta-' + listingId;
+        url = window.location.origin + '/#oferta-' + listingId;
     }
 
     if (navigator.share) {
