@@ -5,6 +5,7 @@
     --dark: #2d3436;
     --text: #636e72;
     --white: #ffffff;
+    --accent: var(--secondary); /* Dla skryptu lupy i globalnych stylów */
 }
 
 * {
@@ -60,6 +61,15 @@ body {
     list-style: none;
     gap: 30px;
     align-items: center;
+}
+
+.nav-toggle {
+    display: none;
+    background: transparent;
+    border: 0;
+    font-size: 1.4rem;
+    color: var(--primary);
+    cursor: pointer;
 }
 
 .nav-links a {
@@ -312,7 +322,34 @@ body {
     .search-box { flex-direction: column; border-radius: 20px; padding: 20px; gap: 15px; }
     .search-field { border-right: none; border-bottom: 1px solid #eee; padding-bottom: 10px; }
     .hero h1 { font-size: 2rem; }
-    .nav-links { display: none; }
+    .nav-toggle { display: block; }
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: var(--white);
+        flex-direction: column;
+        gap: 0;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        padding: 10px 0;
+    }
+    .nav-links.open { display: flex; }
+    .nav-links li { width: 100%; }
+    .nav-links a {
+        display: block;
+        padding: 14px 20px;
+    }
+    .dropdown-content {
+        position: static;
+        transform: none;
+        min-width: auto;
+        width: calc(100% - 30px);
+        margin: 0 15px 10px;
+        box-shadow: none;
+        border: 1px solid #eee;
+    }
 }
 
 /* Sekcja dla Właścicieli */
@@ -499,92 +536,19 @@ body {
     margin-top: 10px;
 }
 
-/* Sekcja Zaufali nam w stopce */
-.trusted-section {
-    text-align: center;
-    margin-bottom: 40px;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    padding-bottom: 30px;
+.form-consent {
+    font-size: 0.9rem;
+    color: var(--text);
 }
 
-.trusted-section h4 {
-    color: var(--secondary);
-    margin-bottom: 20px;
-    font-size: 1.2rem;
-}
-
-.trusted-logos {
+.form-consent label {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 40px;
+    align-items: flex-start;
+    gap: 10px;
 }
 
-.trusted-logos a {
-    display: block;
-}
-
-.trusted-logos img {
-    height: 70px;
-    width: 70px;
-    object-fit: contain;
-    border-radius: 50%;
-    background-color: #ffffff;
-    padding: 12px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    filter: grayscale(100%);
-    opacity: 0.9;
-    transition: all 0.3s ease;
-}
-
-.trusted-logos img:hover {
-    filter: grayscale(0%);
-    opacity: 1;
-    transform: scale(1.1);
-    box-shadow: 0 0 20px var(--hover-color);
-}
-
-/* Custom Tooltip (Dymek z opisem) */
-.logo-tooltip {
-    position: relative;
-    display: inline-block;
-}
-.logo-tooltip::before, .logo-tooltip::after {
-    position: absolute;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    pointer-events: none;
-    z-index: 1100;
-}
-.logo-tooltip::after {
-    content: attr(data-tooltip);
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%) translateY(10px);
-    background: var(--secondary);
-    color: #fff;
-    padding: 8px 12px;
-    border-radius: 6px;
-    font-size: 0.85rem;
-    white-space: nowrap;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    margin-bottom: 12px;
-}
-.logo-tooltip::before {
-    content: '';
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%) translateY(10px);
-    border: 6px solid transparent;
-    border-top-color: var(--secondary);
-    margin-bottom: 0px;
-}
-.logo-tooltip:hover::before, .logo-tooltip:hover::after {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(-50%) translateY(0);
+.form-consent input[type="checkbox"] {
+    margin-top: 3px;
 }
 
 /* Przycisk nawigacji w opisie */
@@ -818,36 +782,6 @@ body {
 
 @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
 
-/* =========================================
-   BADGE "WYNAJĘTE"
-   ========================================= */
-.rented-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.6); /* Lekko mleczne tło */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 5;
-    backdrop-filter: blur(2px);
-}
-
-.rented-text {
-    background-color: #e74c3c;
-    color: #fff;
-    padding: 10px 30px;
-    font-size: 1.2rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    transform: rotate(-15deg);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    border: 2px solid #fff;
-    letter-spacing: 2px;
-}
-
 /* Przycisk instalacji PWA */
 .btn-install {
     margin-top: 15px;
@@ -896,4 +830,19 @@ body {
 .fade-in-section.is-visible {
     opacity: 1;
     transform: translateY(0);
+}
+
+.shared-listing-toolbar {
+    margin: 0 auto 30px;
+    padding: 15px 20px;
+    background: #e9f5ff;
+    border: 1px solid #cce8ff;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.shared-listing-toolbar p {
+    margin-bottom: 10px;
+    color: var(--primary);
+    font-weight: 600;
 }

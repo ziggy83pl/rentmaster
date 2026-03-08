@@ -2,6 +2,13 @@ let aktualnaGaleria = [];
 let aktualnyIndeks = 0;
 let aktualnyZoom = 1;
 
+function zabezpieczLinkiZewnetrzne(kontener) {
+    if (!kontener) return;
+    kontener.querySelectorAll('a[target="_blank"]').forEach(link => {
+        link.setAttribute('rel', 'noopener noreferrer');
+    });
+}
+
 function generateListingCard(data) {
     // Generuje listę parametrów (np. metraż, pokoje)
     const paramsHTML = data.params && data.params.length > 0 
@@ -71,6 +78,7 @@ function pokazOpis(listingId, przycisk) {
         if (!listing) return;
 
         kontener.innerHTML = listing.description || "Brak opisu.";
+        zabezpieczLinkiZewnetrzne(kontener);
         kontener.classList.add('otwarte');
         kontener.style.maxHeight = kontener.scrollHeight + "px";
 
@@ -189,7 +197,7 @@ function wyslijFormularz(event) {
             telefon: form.querySelector('input[name="telefon"]').value,
             email: form.querySelector('input[name="email"]').value,
             wiadomosc: form.querySelector('textarea[name="wiadomosc"]').value,
-            _subject: "---> Nowe zapytanie od RentMaster <---",
+            _subject: "Nowe zapytanie RentMaster",
             _captcha: "false",
             _autoresponse: "Dziękujemy za wiadomość! Otrzymaliśmy Twoje zgłoszenie i skontaktujemy się z Tobą wkrótce."
         })
@@ -204,17 +212,17 @@ function wyslijFormularz(event) {
             successDiv.innerHTML = `
                 <i class="fas fa-check-circle" style="font-size: 3rem; color: #2ecc71; margin-bottom: 20px;"></i>
                 <h3>Dziękujemy za wiadomość!</h3>
-                <p>Skontaktujemy się z Tobą.</p>
+                <p>Skontaktujemy się z Tobą w ciągu 24 godzin.</p>
                 <button type="button" id="new-message-btn" class="btn-main" style="margin-top: 20px;">Wyślij kolejną wiadomość</button>
             `;
             wrapper.appendChild(successDiv);
 
             document.getElementById('new-message-btn').addEventListener('click', () => {
-                successDiv.remove(); // Usuwa komunikat o sukcesie
-                originalChildren.forEach(child => child.style.display = ''); // Przywraca formularz
-                form.reset(); // Czyści pola (imię, email, itp.)
-                btn.innerText = originalText; // Przywraca napis na przycisku
-                btn.disabled = false; // Odblokowuje przycisk
+                successDiv.remove();
+                originalChildren.forEach(child => child.style.display = '');
+                form.reset();
+                btn.innerText = originalText;
+                btn.disabled = false;
             });
         } else {
             alert("Wystąpił problem z wysłaniem formularza. Spróbuj ponownie później.");
@@ -243,6 +251,7 @@ function formatujTelefon(input) {
 const mybutton = document.getElementById("btn-back-to-top");
 
 window.onscroll = function() {
+    if (!mybutton) return;
     if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
         mybutton.style.display = "block";
     } else {
@@ -283,7 +292,61 @@ function udostepnij(listingId) {
     }
 }
 
+function pokazTylkoUdostepnionaOferte(listingId) {
+    const cards = document.querySelectorAll('.property-card');
+    const aktywnaKarta = document.getElementById('oferta-' + listingId);
+    if (!aktywnaKarta) return;
+
+    cards.forEach(card => {
+        card.style.display = card.id === ('oferta-' + listingId) ? 'block' : 'none';
+    });
+
+    const noResults = document.getElementById('no-results');
+    if (noResults) noResults.style.display = 'none';
+
+    let toolbar = document.getElementById('shared-listing-toolbar');
+    if (!toolbar) {
+        toolbar = document.createElement('div');
+        toolbar.id = 'shared-listing-toolbar';
+        toolbar.className = 'shared-listing-toolbar';
+        toolbar.innerHTML = `
+            <p>Wyświetlasz ofertę z udostępnionego linku.</p>
+            <button type="button" class="btn-main" id="show-all-offers-btn">Pokaż wszystkie oferty</button>
+        `;
+        const ofertySection = document.getElementById('oferty');
+        if (ofertySection) {
+            const title = ofertySection.querySelector('.section-title');
+            if (title) title.insertAdjacentElement('afterend', toolbar);
+        }
+
+        const resetBtn = document.getElementById('show-all-offers-btn');
+        if (resetBtn) {
+            resetBtn.addEventListener('click', () => {
+                cards.forEach(card => card.style.display = 'block');
+                toolbar.remove();
+                history.replaceState(null, '', window.location.pathname);
+                filtrujOgloszenia();
+            });
+        }
+    }
+}
+
 window.addEventListener('DOMContentLoaded', () => {
+    const navToggle = document.getElementById('nav-toggle');
+    const mainNav = document.getElementById('main-nav');
+    if (navToggle && mainNav) {
+        navToggle.addEventListener('click', () => {
+            const czyOtwarte = mainNav.classList.toggle('open');
+            navToggle.setAttribute('aria-expanded', String(czyOtwarte));
+        });
+        mainNav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mainNav.classList.remove('open');
+                navToggle.setAttribute('aria-expanded', 'false');
+            });
+        });
+    }
+
     const propertyGrid = document.querySelector('.property-grid');
     if (!propertyGrid) return;
 
@@ -310,6 +373,10 @@ window.addEventListener('DOMContentLoaded', () => {
         if (card) {
             const btn = card.querySelector('.btn-view');
             if (btn) pokazOpis(listingId, btn);
+            pokazTylkoUdostepnionaOferte(listingId);
+            setTimeout(() => {
+                card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 200);
         }
     }
 });
@@ -318,15 +385,16 @@ const lightbox = document.getElementById('lightbox');
 let touchStartX = 0;
 let touchEndX = 0;
 
-lightbox.addEventListener('touchstart', (event) => {
-    touchStartX = event.changedTouches[0].screenX;
-}, { passive: true });
+if (lightbox) {
+    lightbox.addEventListener('touchstart', (event) => {
+        touchStartX = event.changedTouches[0].screenX;
+    }, { passive: true });
 
-lightbox.addEventListener('touchend', (event) => {
-    // Zapisujemy pozycję końcową dotyku
-    touchEndX = event.changedTouches[0].screenX;
-    handleGesture();
-});
+    lightbox.addEventListener('touchend', (event) => {
+        touchEndX = event.changedTouches[0].screenX;
+        handleGesture();
+    });
+}
 
 function handleGesture() {
     if (aktualnyZoom > 1) return;
@@ -393,6 +461,4 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll('.fade-in-section').forEach(section => {
         observer.observe(section);
     });
-
 });
-
