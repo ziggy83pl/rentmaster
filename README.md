@@ -1,4 +1,4 @@
-https://ziggy83pl.github.io/rentmaster/
+﻿https://rentmaster.pages.dev/
 
 # RentMaster - Platforma Wynajmu Nieruchomości
 
