@@ -45,7 +45,7 @@ function generateListingCard(data) {
 
     return `
         <div class="property-card ${data.isBargain ? 'bargain-card' : ''}" id="oferta-${data.id}" data-city="${data.city}" data-type="${data.type}">
-            <div class="property-img" style="background-image: url('${bgImage}'); ${imageStyle}" onclick="otworzGalerie('${data.id}')">
+            <div class="property-img" style="background-image: url('${bgImage}'); ${imageStyle}" onclick="otworzGalerie('${data.id}')" role="button" tabindex="0" aria-label="Otwórz galerię zdjęć" onkeydown="if(event.key==='Enter'||event.key===' ')otworzGalerie('${data.id}')" >
                 <span class="badge">${data.badge}</span>
                 ${bargainBadge}
                 ${rentedHTML}
@@ -349,13 +349,12 @@ window.addEventListener('DOMContentLoaded', () => {
     const propertyGrid = document.querySelector('.property-grid');
     if (!propertyGrid) return;
 
-    // Generowanie kart ogłoszeń
+    // Generowanie kart ogłoszeń - jeden zapis DOM zamiast pętli (lepsza wydajność)
     if (typeof listingsData !== 'undefined' && Array.isArray(listingsData)) {
-        listingsData.forEach(listing => {
-            if (listing.enabled) {
-                propertyGrid.innerHTML += generateListingCard(listing);
-            }
-        });
+        propertyGrid.innerHTML = listingsData
+            .filter(listing => listing.enabled)
+            .map(generateListingCard)
+            .join('');
     }
 
     // Uruchom filtrowanie na starcie, aby obsłużyć brak wyników lub domyślne filtry
